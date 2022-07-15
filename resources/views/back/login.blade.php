@@ -1,11 +1,10 @@
-
 @extends('layouts.admin-auth')
 @section('style')
-<style>
-    .bg-login-image{
-        background: url("https://aws1.discourse-cdn.com/elastic/original/3X/9/0/90df22ab443662d632838fd82f6ea38b2cba025a.png");
-    }
-</style>
+    <style>
+        .bg-login-image{
+            background: url("https://aws1.discourse-cdn.com/elastic/original/3X/9/0/90df22ab443662d632838fd82f6ea38b2cba025a.png");
+        }
+    </style>
 @endsection
 @section('content')
     <!-- Outer Row -->
@@ -23,30 +22,29 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                 </div>
-                                <form class="user">
+                                <form class="user" action="{{ route('login') }}" method="post">
+                                    @csrf
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user"
-                                            id="exampleInputEmail" aria-describedby="emailHelp"
-                                            placeholder="Enter Email Address...">
+                                        <input type="text" name="username" id="" class="form-control form-control-user" value="{{ old('username') }}" placeholder="Enter Your User Name">
+                                        @error('username') <span class="text-danger"> {{ $message }} </span>@enderror
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
+                                        <input type="password" name="password" id="" class="form-control-user form-control" value="{{ old('password') }}" placeholder="Enter Your Password">
+                                        @error('password') <span class="text-danger"> {{ $message }} </span>@enderror
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember
-                                                Me</label>
+                                            <input class="checkbox custom-control-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : 'unchecked ' }} >
+                                            <label for="remember" class="custom-control-label" {{ old('remember') ? 'checked' : '' }}>{{ __('Remember Me') }}</label>
                                         </div>
                                     </div>
-                                    <a href="{{ route('back.index') }}" class="btn btn-primary btn-user btn-block">
+                                    <button type="submit" class="btn btn-primary btn-user btn-block">
                                         Login
-                                    </a>
+                                    </button>
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="{{ route('back.forgot_password') }}">Forgot Password?</a>
+                                    <a class="small" href="{{ route('admin.forgot_password') }}">Forgot Password?</a>
                                 </div>
                             </div>
                         </div>
@@ -58,4 +56,3 @@
 
     </div>
 @endsection
-

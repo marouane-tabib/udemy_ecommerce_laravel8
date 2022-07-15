@@ -5,7 +5,8 @@ namespace App\Http\Middleware;
 use App\Models\Role;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
+
 
 class Roles
 {
@@ -28,7 +29,7 @@ class Roles
                 return $next($request);
             }else{
                 if ($route[0] != auth()->user()->roles[0]->allowed_route){
-                    $path = $route[0] == auth()->user()->roles[0]->allowed_route ? $route[0].'.login' : '' . auth()->user()->roles[0]->allowed_route.'.index';
+                    $path = $route[0] == auth()->user()->roles[0]->allowed_route ? $route[0].'.login' : '' . auth()->user()->roles[0]->allowed_route.'front.index';
                     return redirect()->route($path);
                 }else{
                     return $next($request);
