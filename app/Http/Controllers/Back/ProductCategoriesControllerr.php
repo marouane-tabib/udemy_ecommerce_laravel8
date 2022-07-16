@@ -14,7 +14,7 @@ class ProductCategoriesControllerr extends Controller
      */
     public function index()
     {
-        //
+        return view('back.product_categories.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class ProductCategoriesControllerr extends Controller
      */
     public function create()
     {
-        //
+        return view('back.product_categories.create');
     }
 
     /**
@@ -46,7 +46,7 @@ class ProductCategoriesControllerr extends Controller
      */
     public function show($id)
     {
-        //
+        return view('back.product_categories.show');
     }
 
     /**
@@ -57,7 +57,7 @@ class ProductCategoriesControllerr extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('back.product_categories.edit');
     }
 
     /**
