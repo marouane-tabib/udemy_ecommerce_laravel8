@@ -27,7 +27,7 @@ class ViewServiceProvider extends ServiceProvider
     {
         if (request()->is('admin/*')){
             view()->composer('*', function ($view){
-               if (!Cache::hase('admin_side_menu')) {
+               if (!Cache::has('admin_side_menu')) {
                    Cache::forever('admin_side_menu' , Permission::tree());
                }
                $admin_side_menu = Cache::get('admin_side_menu');
