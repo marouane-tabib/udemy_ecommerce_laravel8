@@ -1,5 +1,7 @@
 @php
-    $current_page = \Route::currentRouteName();
+    // hadi ka tejibe biha name deyal route li neta khedam bihe matalan "admi/index" => "admin.index" name li rake 3etitihe
+    $current_page = Route::currentRouteName();
+    //echo $current_page;
 @endphp
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
