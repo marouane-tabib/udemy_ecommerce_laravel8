@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Back;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ProductCategoriesControllerr extends Controller
+class ProductController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +15,7 @@ class ProductCategoriesControllerr extends Controller
      */
     public function index()
     {
-        return view('back.product_categories.index');
+        return view('back.products.index');
     }
 
     /**
@@ -24,7 +25,7 @@ class ProductCategoriesControllerr extends Controller
      */
     public function create()
     {
-        return view('back.product_categories.create');
+        return view('back.products.create');
     }
 
     /**
@@ -46,7 +47,7 @@ class ProductCategoriesControllerr extends Controller
      */
     public function show($id)
     {
-        return view('back.product_categories.show');
+        return view('back.products.show');
     }
 
     /**
@@ -57,7 +58,7 @@ class ProductCategoriesControllerr extends Controller
      */
     public function edit($id)
     {
-        return view('back.product_categories.edit');
+        return view('back.products.edit');
     }
 
     /**

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Back\BackController;
-use App\Http\Controllers\Back\ProductCategoriesControllerr;
+use App\Http\Controllers\Back\ProductCategoriesController;
+use App\Http\Controllers\Back\ProductController;
+use App\Http\Controllers\Back\TagController;
 use App\Http\Controllers\Front\FrontendController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +32,10 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] ,  function(){
     Route::group(['middleware' => ['roles' , 'role:admin|supervisor']] , function (){
         Route::get('/', [BackController::class , 'index'])->name('route_index');
         Route::get('/index', [BackController::class , 'index'])->name('index');
-        Route::resource('product_categories' , ProductCategoriesControllerr::class);
+
+        Route::resource('product_categories' , ProductCategoriesController::class);
+        Route::resource('products' , ProductController::class);
+        Route::resource('tags' , TagController::class);
     });
 });
 Auth::routes(['verify' => true]);
