@@ -40,13 +40,13 @@
                     <i class="{{ $menu->icon != '' ? $menu->icon : 'fas fa-home' }}"></i>
                     <span>{{ $menu->display_name }}</span>
                 </a>
-                @if($menu->appearChildren !== null && count($menu->appearChildren) > 0)
+                @if($menu->appearedChildren !== null && count($menu->appearedChildren) > 0)
                     <div id="collapse_{{ $menu->route }}"
                          class="collapse {{ in_array($menu->parent_show , [getParentShowOf($current_page) , getParentOf($current_page)]) ? 'show' : null }}"
                          aria-labelledby="heading_{{ $menu->route }}"
                          data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            @foreach($menu->appearChildren as $sub_menu)
+                            @foreach($menu->appearedChildren as $sub_menu)
                                 <a class="collapse-item {{ getParentOf($current_page) != null && (int)(getParentIdOf($current_page)+1) == $sub_menu->id ? 'active' : null }}" href="{{ route('admin.'.$sub_menu->as) }}">
                                     {{ $sub_menu->display_name }}
                                 </a>
