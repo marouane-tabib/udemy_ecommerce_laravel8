@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 
 class ProductCategoriesController extends Controller
@@ -10,11 +11,26 @@ class ProductCategoriesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        return view('back.product_categories.index');
+        // keyword
+        // status
+        // sort_by
+        // order_by
+        // limit_by
+
+        $categories = ProductCategory::withCount('products')
+            ->when(\request()->keyword != null , function($query){
+                $query->search(\request()->keyword);
+            })
+            ->when(\request()->status != '' , function($query){
+                $query->whereStatus(\request()->status);
+            })
+            ->orderBy(\request()->sort_by ?? 'id' , \request()->order_by ?? 'desc')
+            ->paginate(\request()->limit_by ?? 10);
+        return view('back.product_categories.index' , compact('categories'));
     }
 
     /**
