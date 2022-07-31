@@ -23,6 +23,7 @@
     <link rel="shortcut icon" href="{{ asset('front/img/favicon.png') }}">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendor/bootstrap-fileinput/css/fileinput.min.css') }}" rel="stylesheet">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <title>SB Admin 2 - Dashboard</title>
@@ -41,7 +42,7 @@
                 <div id="content">
                     @include('partial.back.navbar')
                     <div class="container-fluid">
-
+                        @include('partial.back.flash')
                         @yield('content')
 
                     </div>
@@ -67,6 +68,12 @@
     <script src="{{ asset('back/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
         <!-- Custom scripts for all pages-->
     <script src="{{ asset('back/js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ asset('back/js/custom.js') }}"></script>
+    <script src="{{ asset('back/vendor/bootstrap-fileinput/js/plugins/piexif.min.js') }}"></script>
+    <script src="{{ asset('back/vendor/bootstrap-fileinput/js/plugins/sortable.min.js') }}"></script>
+    <script src="{{ asset('back/vendor/bootstrap-fileinput/js/fileinput.min.js') }}"></script>
+    <script src="{{ asset('back/vendor/bootstrap-fileinput/themes/fa5/theme.min.js') }}"></script>
+
     @yield('script')
 </body>
 </html>

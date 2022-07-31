@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Back\ProductCategoryRequest;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class ProductCategoriesController extends Controller
 {
@@ -40,18 +43,35 @@ class ProductCategoriesController extends Controller
      */
     public function create()
     {
-        return view('back.product_categories.create');
+        $main_categories = ProductCategory::whereNull('parent_id')->get(['id' , 'name']);
+        return view('back.product_categories.create' , compact('main_categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(ProductCategoryRequest $request)
     {
-        //
+        $input['name'] = $request->name;
+        $input['status'] = $request->status;
+        $input['parent_id'] = $request->parent_id;
+        if($image = $request->file('cover')){
+            $file_name = Str::slug($request->name)."-".time().".".$image->getClientOriginalExtension();
+            $path = public_path('assets\product_categories' . $file_name);
+            Image::make($image->getRealPath())->resize(500, null , function ($constraint){
+                $constraint->aspectRatio();
+            })->save($path, 100);
+            $input['cover'] = $file_name;
+        }
+
+        ProductCategory::create($input);
+        return redirect()->route('admin.product_categories.index')->with([
+            'message' => 'Created successfully',
+            'alert-type'=> 'success'
+        ]);
     }
 
     /**
