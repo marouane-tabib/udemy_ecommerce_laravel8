@@ -42,9 +42,16 @@
                             <a href="{{ route('admin.product_categories.edit' , $category->id) }}" class="btn btn-primary">
                                 <i class="fa fa-edit"></i>
                             </a>
-                            <a href="{{ route('admin.product_categories.destroy' , $category->id) }}" class="btn btn-danger">
+                            <a href="javascript:void(0)"
+                               onclick="if(confirm('Are You sure to delete this record?')){document.getElementById('delete-product-category-{{ $category->id }}').submit();} else {return false}"
+                               class="btn btn-danger">
                                 <i class="fa fa-trash"></i>
                             </a>
+                            <form action="{{ route('admin.product_categories.destroy' , $category->id) }}" method="post" class="d-none" id="delete-product-category-{{ $category->id }}" >
+                                @csrf
+                                @method('DELETE')
+
+                            </form>
                         </div>
                     </td>
                 </tr>

@@ -33,6 +33,7 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] ,  function(){
         Route::get('/', [BackController::class , 'index'])->name('route_index');
         Route::get('/index', [BackController::class , 'index'])->name('index');
 
+        Route::post('/product_categories/remove-image' , [ProductCategoriesController::class , 'remove_image'])->name('product_categories.remove_image');
         Route::resource('product_categories' , ProductCategoriesController::class);
         Route::resource('products' , ProductController::class);
         Route::resource('tags' , TagController::class);

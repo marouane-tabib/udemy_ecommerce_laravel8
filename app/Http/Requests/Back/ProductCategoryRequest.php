@@ -36,7 +36,12 @@ class ProductCategoryRequest extends FormRequest
 
             }
             case 'PATCH' : {
-
+                return [
+                    'name' => 'required|max:255|unique:product_categories,name,'.$this->route()->product_category->id,
+                    'status' => 'required',
+                    'parent_id' => 'nullable',
+                    'cover' => 'nullable|mimes:jpg,jpeg,png|max:2000',
+                ];
             }
             default: break;
         }

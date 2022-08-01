@@ -12,12 +12,13 @@
                 </a>
             </div>
         </div>
-        <div>
+        <br>
+        <div class="container">
             <form action="{{ route('admin.product_categories.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-6">
-                        <div class="form-control">
+                        <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" name="name" value="{{ old('name') }}" class="form-control">
                             @error('name')<span class="text-danger">{{ $message }}</span> @enderror
