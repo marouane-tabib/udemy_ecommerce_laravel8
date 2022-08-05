@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,7 +16,22 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('back.products.index');
+
+        if(!auth()->user()->ability('admin' ,
+            //'manage_product_categories' ,
+            'show_products')){
+            return redirect('admin/index');
+        }
+        $products = Product::with('category' , 'tags' , 'firstMedia')
+            ->when(\request()->keyword != null , function($query){
+                $query->search(\request()->keyword);
+            })
+            ->when(\request()->status != '' , function($query){
+                $query->whereStatus(\request()->status);
+            })
+            ->orderBy(\request()->sort_by ?? 'id' , \request()->order_by ?? 'desc')
+            ->paginate(\request()->limit_by ?? 10);
+        return view('back.products.index' , compact('products'));
     }
 
     /**
