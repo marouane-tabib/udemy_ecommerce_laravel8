@@ -33,6 +33,10 @@ class ProductCategory extends Model
         ]
     ];
 
+    public function status(){
+        return $this->status ? 'Active' : 'Inactive' ;
+    }
+
     public function parent()
     {
         return $this->hasOne(ProductCategory::class, 'id', 'parent_id');

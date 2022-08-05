@@ -30,7 +30,7 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] ,  function(){
         Route::get('/forgot-password', [BackController::class , 'forgot_password'])->name('forgot_password');
     });
     Route::group(['middleware' => ['roles' , 'role:admin|supervisor']] , function (){
-        Route::get('/', [BackController::class , 'index'])->name('route_index');
+        // Route::get('/', [BackController::class , 'index'])->name('route_index');
         Route::get('/index', [BackController::class , 'index'])->name('index');
 
         Route::post('/product_categories/remove-image' , [ProductCategoriesController::class , 'remove_image'])->name('product_categories.remove_image');
