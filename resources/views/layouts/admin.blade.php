@@ -24,10 +24,10 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('back/vendor/bootstrap-fileinput/css/fileinput.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendor/summernote/summernote-bs4.min.css') }}" rel="stylesheet">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <title>SB Admin 2 - Dashboard</title>
-
 
     <!-- Custom styles for this tback/emplate-->
     <link href="{{ asset('back/css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -73,6 +73,7 @@
     <script src="{{ asset('back/vendor/bootstrap-fileinput/js/plugins/sortable.min.js') }}"></script>
     <script src="{{ asset('back/vendor/bootstrap-fileinput/js/fileinput.min.js') }}"></script>
     <script src="{{ asset('back/vendor/bootstrap-fileinput/themes/fa5/theme.min.js') }}"></script>
+    <script src="{{ asset('back/vendor/summernote/summernote-bs4.min.js') }}"></script>
 
     @yield('script')
 </body>

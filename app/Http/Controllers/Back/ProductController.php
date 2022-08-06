@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -41,7 +43,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('back.products.create');
+        $categories = ProductCategory::whereStatus(1)->get(['id' , 'name']);
+        $tags = Tag::whereStatus(1)->get(['id' , 'name']);
+        return view('back.products.create' , compact('categories' , 'tags'));
     }
 
     /**
