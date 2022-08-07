@@ -82,21 +82,49 @@ class EntrustSeeder extends Seeder
         // DELETE TAGS
         $deleteTags = Permission::create(['name' => 'delete_tags', 'display_name' => 'Delete Tag', 'route' => 'tags', 'module' => 'tag', 'as' => 'tags.destroy', 'icon' => null, 'parent' => $manageTags->id, 'parent_original' => $manageTags->id, 'parent_show' => $manageTags->id, 'sidebar_link' => '1', 'appear' => '0']);
 
-        // PRODUCTS
-        $manageProducts = Permission::create(['name' => 'manage_products', 'display_name' => 'Products', 'route' => 'products', 'module' => 'product', 'as' => 'product.index', 'icon' => 'fas fa-file-archive', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '10']);
-        $manageProducts->parent_show = $manageProducts->id ;
-        $manageProducts->save();
-
-        // PRODUCTS
+        // MANAGE PRODUCTS
+        $manageProducts = Permission::create(['name' => 'manage_products', 'display_name' => 'Products', 'route' => 'products', 'module' => 'product', 'as' => 'product.index', 'icon' => 'fas fa-file-archive', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '15']);
+        $manageProducts->parent_show = $manageProducts->id ;$manageProducts->save();
+        // SHOW PRODUCTS
         $showProducts = Permission::create(['name' => 'show_products', 'display_name' => 'Products', 'route' => 'products', 'module' => 'product', 'as' => 'products.index', 'icon' => 'fas fa-file-archive', 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '1']);
-        // CREATE TAGS
+        // CREATE PRODUCTS
         $createProducts = Permission::create(['name' => 'create_products', 'display_name' => 'Create Products', 'route' => 'products', 'module' => 'product', 'as' => 'products.create', 'icon' => 'fas fa-create', 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '0']);
-        // DISPLAY TAGS
+        // DISPLAY PRODUCTS
         $displayProducts = Permission::create(['name' => 'display_products', 'display_name' => 'Show Products', 'route' => 'products', 'module' => 'product', 'as' => 'products.show', 'icon' => null, 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '0']);
-        // UPDATE TAGS
+        // UPDATE PRODUCTS
         $updateProducts = Permission::create(['name' => 'update_products', 'display_name' => 'Update Products', 'route' => 'products', 'module' => 'product', 'as' => 'products.edit', 'icon' => null, 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '0']);
-        // DELETE TAGS
+        // DELETE PRODUCTS
         $deleteProducts = Permission::create(['name' => 'delete_products', 'display_name' => 'Delete Products', 'route' => 'products', 'module' => 'product', 'as' => 'products.destroy', 'icon' => null, 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '0']);
+
+
+        // PRODUCTS COUPONS
+        $manageProducts = Permission::create(['name' => 'manage_products_coupons', 'display_name' => 'Coupons', 'route' => 'product_coupons', 'module' => 'product_coupons', 'as' => 'product_coupons.index', 'icon' => 'fas fa-percent', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '20']);
+        $manageProducts->parent_show = $manageProducts->id ;$manageProducts->save();
+        // PRODUCTS COUPONS
+        $showProductsCoupons = Permission::create(['name' => 'show_product_coupons', 'display_name' => 'Products Coupons', 'route' => 'product_coupons', 'module' => 'product', 'as' => 'product_coupons.index', 'icon' => 'fas fa-percent', 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '1']);
+        // CREATE PRODUCTS COUPONS
+        $createProductsCoupons = Permission::create(['name' => 'create_product_coupons', 'display_name' => 'Create Products Coupons', 'route' => 'product_coupons', 'module' => 'product', 'as' => 'product_coupons.create', 'icon' => 'fas fa-percent', 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '0']);
+        // DISPLAY PRODUCTS COUPONS
+        $displayProductsCoupons = Permission::create(['name' => 'display_product_coupons', 'display_name' => 'Show Products Coupons', 'route' => 'product_coupons', 'module' => 'product', 'as' => 'product_coupons.show', 'icon' => null, 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '0']);
+        // UPDATE PRODUCTS COUPONS
+        $updateProductsCoupons = Permission::create(['name' => 'update_product_coupons', 'display_name' => 'Update Products Coupons', 'route' => 'product_coupons', 'module' => 'product', 'as' => 'product_coupons.edit', 'icon' => null, 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '0']);
+        // DELETE PRODUCTS COUPONS
+        $deleteProductsCoupons = Permission::create(['name' => 'delete_product_coupons', 'display_name' => 'Delete Products Coupons', 'route' => 'product_coupons', 'module' => 'product', 'as' => 'product_coupons.destroy', 'icon' => null, 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '0']);
+
+
+        // PRODUCTS REVIEWS
+        // $manageProducts = Permission::create(['name' => 'manage_products_reviews', 'display_name' => 'Reviews', 'route' => 'product_reviews', 'module' => 'product_reviews', 'as' => 'product_reviews.index', 'icon' => 'fas fa-comment', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '20']);
+        // $manageProducts->parent_show = $manageProducts->id ;$manageProducts->save();
+        // PRODUCTS REVIEWS
+        // $showProductsReviews = Permission::create(['name' => 'show_product_reviews', 'display_name' => 'Products Reviews', 'route' => 'product_reviews', 'module' => 'product', 'as' => 'product_reviews.index', 'icon' => 'fas fa-comment', 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '1']);
+        // CREATE PRODUCTS REVIEWS
+        // $createProductsReviews = Permission::create(['name' => 'create_product_reviews', 'display_name' => 'Create Products Reviews', 'route' => 'product_reviews', 'module' => 'product', 'as' => 'product_reviews.create', 'icon' => 'fas fa-comment', 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '0']);
+        // DISPLAY PRODUCTS REVIEWS
+        // $displayProductsReviews = Permission::create(['name' => 'display_product_reviews', 'display_name' => 'Show Products Reviews', 'route' => 'product_reviews', 'module' => 'product', 'as' => 'product_reviews.show', 'icon' => null, 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '0']);
+        // UPDATE PRODUCTS REVIEWS
+        // $updateProductsReviews = Permission::create(['name' => 'update_product_reviews', 'display_name' => 'Update Products Reviews', 'route' => 'product_reviews', 'module' => 'product', 'as' => 'product_reviews.edit', 'icon' => null, 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '0']);
+        // DELETE PRODUCTS REVIEWS
+        // $deleteProductsReviews = Permission::create(['name' => 'delete_product_reviews', 'display_name' => 'Delete Products Reviews', 'route' => 'product_reviews', 'module' => 'product', 'as' => 'product_reviews.destroy', 'icon' => null, 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '0']);
 
     }
 
