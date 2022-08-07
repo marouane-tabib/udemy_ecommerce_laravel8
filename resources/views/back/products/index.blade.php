@@ -36,7 +36,7 @@
             @forelse($products as $product)
                 <tr>
                     <td>
-                        @if($product->firsrMedia)
+                        @if($product->firstMedia)
                             <img src="{{ asset('assets/products/' . $product->firstMedia->file_name) }}" width="60" height="60" alt="{{ $product->name }}">
                         @else
                             <img src="{{ asset('assets/no_image.png') }}" width="60" height="60" alt="No Images">

@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="col-3">
-                        <label for="product_category_id">Parent</label>
+                        <label for="product_category_id">Category</label>
                         <select name="product_category_id" class="form-control">
                             <option value="">---</option>
                             @forelse($categories as $category)
@@ -54,7 +54,7 @@
                         <div class="col-12">
                             <label for="description">Description</label>
                             <textarea name="description" rows="10" class="form-control summernote">
-                                {{ old('description') }}
+                                {!! old('description')  !!}
                             </textarea>
                         </div>
                     </div><br>
