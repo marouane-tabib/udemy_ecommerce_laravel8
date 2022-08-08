@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Back\ProductCouponRequest;
 use App\Models\ProductCoupon;
 use Illuminate\Http\Request;
 
@@ -33,28 +34,15 @@ class ProductCouponController extends Controller
         return view('back.product_coupons.index' , compact('coupons'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         if(!auth()->user()->ability('admin' , 'create_product_coupons')){
             return redirect('admin/index');
         }
-
-        $main_coupons = ProductCategory::whereNull('parent_id')->get(['id' , 'name']);
-        return view('back.product_coupons.create' , compact('main_coupons'));
+        return view('back.product_coupons.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(ProductCategoryRequest $request)
+    public function store(ProductCouponRequest $request)
     {
         if(!auth()->user()->ability('admin' , 'create_product_coupons')){
             return redirect('admin/index');
@@ -79,12 +67,6 @@ class ProductCouponController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         if(!auth()->user()->ability('admin' , 'display_product_coupons')){
@@ -93,12 +75,6 @@ class ProductCouponController extends Controller
         return view('back.product_coupons.show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-     */
     public function edit(ProductCategory $productCategory)
     {
         if(!auth()->user()->ability('admin' , 'update_product_coupons')){
@@ -108,14 +84,7 @@ class ProductCouponController extends Controller
         return view('back.product_coupons.edit' , compact('main_coupons' , 'productCategory'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
-     */
-    public function update(ProductCategoryRequest $request, ProductCategory $productCategory)
+    public function update(ProductCouponRequest $request, ProductCategory $productCategory)
     {
         if(!auth()->user()->ability('admin' , 'update_product_coupons')){
             return redirect('admin/index');
@@ -145,12 +114,6 @@ class ProductCouponController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
-     */
     public function destroy(ProductCategory $productCategory)
     {
         if(!auth()->user()->ability('admin' , 'delete_product_coupons')){
