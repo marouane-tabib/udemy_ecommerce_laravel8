@@ -7,6 +7,9 @@
         .picker__select--month, .picker__select--year{
             padding:0 !important;
         }
+        #code{
+            text-transform: uppercase;
+        }
     </style>
 @endsection
 @section('content')
@@ -97,9 +100,7 @@
                     <div class="row pt-4">
                         <div class="col-12">
                             <lavel for="desctiption">Description</lavel>
-                            <textarea name="description" id="description" class="form-control" rows="3">
-                                {{ old('description') }}
-                            </textarea>
+                            <textarea name="description" id="description" class="form-control" rows="3">{{ old('description') }}</textarea>
                             @error('cover')<span calss="text-danger">{{ $message }}</span>@enderror
                         </div>
                     </div>
@@ -117,9 +118,10 @@
     <script src="{{ asset('back/vendor/datepicker/picker.date.js') }}"></script>
     <script>
         $(function(){
-            $('#code').keydown(function(){
+
+            $('#code').on('keyup' , function(){
                 this.value = this.value.toUpperCase();
-            })
+            });
 
             $('#start_date').pickadate({
                 format: 'yyyy-mm-dd',

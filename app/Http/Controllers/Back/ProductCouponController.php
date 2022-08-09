@@ -48,19 +48,8 @@ class ProductCouponController extends Controller
             return redirect('admin/index');
         }
 
-        $input['name'] = $request->name;
-        $input['status'] = $request->status;
-        $input['parent_id'] = $request->parent_id;
-        if($image = $request->file('cover')){
-            $file_name = Str::slug($request->name)."-".time().".".$image->getClientOriginalExtension();
-            $path = public_path('assets\product_coupons/' . $file_name);
-            Image::make($image->getRealPath())->resize(500, null , function ($constraint){
-                $constraint->aspectRatio();
-            })->save($path, 100);
-            $input['cover'] = $file_name;
-        }
+        ProductCoupon::create($request->validated());
 
-        ProductCategory::create($input);
         return redirect()->route('admin.product_coupons.index')->with([
             'message' => 'Created successfully',
             'alert-type'=> 'success'
@@ -75,37 +64,22 @@ class ProductCouponController extends Controller
         return view('back.product_coupons.show');
     }
 
-    public function edit(ProductCategory $productCategory)
+    public function edit(ProductCoupon $productCoupon)
     {
         if(!auth()->user()->ability('admin' , 'update_product_coupons')){
             return redirect('admin/index');
         }
-        $main_coupons = ProductCategory::whereNull('parent_id')->get(['id' , 'name']);
-        return view('back.product_coupons.edit' , compact('main_coupons' , 'productCategory'));
+
+        return view('back.product_coupons.edit' , compact('productCoupon'));
     }
 
-    public function update(ProductCouponRequest $request, ProductCategory $productCategory)
+    public function update(ProductCouponRequest $request, ProductCoupon $productCoupon)
     {
         if(!auth()->user()->ability('admin' , 'update_product_coupons')){
             return redirect('admin/index');
         }
 
-        $input['name'] = $request->name;
-        $input['slug'] = null ;
-        $input['status'] = $request->status;
-        $input['parent_id'] = $request->parent_id;
-        if($image = $request->file('cover')){
-            if ($productCategory->cover != null and File::exists('assets/product_coupons/'. $productCategory->cover)){
-                unlink('assets/product_coupons/' . $productCategory->cover);
-            }
-            $file_name = Str::slug($request->name)."-".time().".".$image->getClientOriginalExtension();
-            $path = public_path('assets\product_coupons/' . $file_name);
-            Image::make($image->getRealPath())->resize(500, null , function ($constraint){
-                $constraint->aspectRatio();
-            })->save($path, 100);
-            $input['cover'] = $file_name;
-        }
-        $productCategory->update($input);
+        $productCoupon->update($request->validated());
 
         return redirect()->route('admin.product_coupons.index')->with([
             'message' => 'Update successfully',
@@ -114,15 +88,12 @@ class ProductCouponController extends Controller
 
     }
 
-    public function destroy(ProductCategory $productCategory)
+    public function destroy(ProductCoupon $productCoupon)
     {
         if(!auth()->user()->ability('admin' , 'delete_product_coupons')){
             return redirect('admin/index');
         }
-        if (File::exists('assets/product_coupons/'. $productCategory->cover)){
-            unlink('assets/product_coupons/' . $productCategory->cover);
-        }
-        $productCategory->delete();
+        $productCoupon->delete();
 
         return redirect()->route('admin.product_coupons.index')->with([
             'message' => 'Delete successfully',

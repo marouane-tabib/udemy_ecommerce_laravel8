@@ -38,10 +38,10 @@
                 <tr>
                     <td>{{ $coupon->code }}</td>
                     <td>{{ $coupon->value }} {{ $coupon->type == 'fixed' ? '$' : '%' }}</td>
-                    <td>{{ $coupon->description ?? '' }}</td>
                     <td>{{ $coupon->used_times . '/' . $coupon->use_times }}</td>
                     <td>{{ $coupon->start_date != '' ? $coupon->start_date->format('Y-m-d') . ' - ' . $coupon->expire_date->format('Y-m-d') : '-' }}</td>
-                    <td>{{ $coupon->status(); }}</td>
+                    <td>{{ $coupon->greater_than }}</td>
+                    <td>{{ $coupon->status() }}</td>
                     <td>{{ $coupon->created_at }}</td>
                     <td>
                         <div class="btn-group btn-group-sm">
