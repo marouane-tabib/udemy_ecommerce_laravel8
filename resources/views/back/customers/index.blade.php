@@ -5,7 +5,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Product Customers</h6>
             <div class="ml-auto">
                 @ability('admin' , 'create_customers')
-                <a href="{{ route('admin.customer.create') }}" class="btn btn-primary">
+                <a href="{{ route('admin.customers.create') }}" class="btn btn-primary">
                     <span class="icon text-white-50">
                         <i class="fa fa-plus"></i>
                     </span>
@@ -53,7 +53,7 @@
                     <td>{{ $customer->created_at->format('Y-m-d') }}</td>
                     <td>
                         <div class="btn-group btn-group-sm">
-                            <a href="{{ route('admin.customer.edit' , $customer->id) }}" class="btn btn-primary">
+                            <a href="{{ route('admin.customers.edit' , $customer->id) }}" class="btn btn-primary">
                                 <i class="fa fa-edit"></i>
                             </a>
                             <a href="javascript:void(0)"
@@ -62,7 +62,7 @@
                                 <i class="fa fa-trash"></i>
                             </a>
                         </div>
-                        <form action="{{ route('admin.customer.destroy' , $customer->id) }}" method="post" class="d-none" id="delete-customer-{{ $customer->id }}" >
+                        <form action="{{ route('admin.customers.destroy' , $customer->id) }}" method="post" class="d-none" id="delete-customer-{{ $customer->id }}" >
                             @csrf
                             @method('DELETE')
                         </form>

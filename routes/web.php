@@ -44,7 +44,7 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] ,  function(){
         Route::resource('product_coupons' , ProductCouponController::class);
         Route::resource('product_reviews' , ProductReviewController::class);
 
-        Route::resource('customer' , CustomerController::class);
+        Route::resource('customers' , CustomerController::class);
     });
 });
 Auth::routes(['verify' => true]);

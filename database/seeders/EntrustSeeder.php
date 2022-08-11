@@ -124,18 +124,18 @@ class EntrustSeeder extends Seeder
 
 
         // CUSTOMER
-        $manageCustomers = Permission::create(['name' => 'manage_customers', 'display_name' => 'Customers', 'route' => 'customers', 'module' => 'customers', 'as' => 'customer.index', 'icon' => 'fas fa-user', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '20']);
+        $manageCustomers = Permission::create(['name' => 'manage_customers', 'display_name' => 'Customers', 'route' => 'customers', 'module' => 'customers', 'as' => 'customers.index', 'icon' => 'fas fa-user', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '20']);
         $manageCustomers->parent_show = $manageCustomers->id ;$manageCustomers->save();
         // SHOW CUSTOMER
-        $showCustomers = Permission::create(['name' => 'show_customers', 'display_name' => 'Customers', 'route' => 'customers', 'module' => 'customers', 'as' => 'customer.index', 'icon' => 'fas fa-comment', 'parent' => $manageCustomers->id, 'parent_original' => $manageCustomers->id, 'parent_show' => $manageCustomers->id, 'sidebar_link' => '1', 'appear' => '1']);
+        $showCustomers = Permission::create(['name' => 'show_customers', 'display_name' => 'Customers', 'route' => 'customers', 'module' => 'customers', 'as' => 'customers.index', 'icon' => 'fas fa-comment', 'parent' => $manageCustomers->id, 'parent_original' => $manageCustomers->id, 'parent_show' => $manageCustomers->id, 'sidebar_link' => '1', 'appear' => '1']);
         // CREATE CUSTOMER
-        $createCustomers = Permission::create(['name' => 'create_customers', 'display_name' => 'Create Customers', 'route' => 'customers', 'module' => 'customers', 'as' => 'customer.create', 'icon' => 'fas fa-comment', 'parent' => $manageCustomers->id, 'parent_original' => $manageCustomers->id, 'parent_show' => $manageCustomers->id, 'sidebar_link' => '1', 'appear' => '0']);
+        $createCustomers = Permission::create(['name' => 'create_customers', 'display_name' => 'Create Customers', 'route' => 'customers', 'module' => 'customers', 'as' => 'customers.create', 'icon' => 'fas fa-comment', 'parent' => $manageCustomers->id, 'parent_original' => $manageCustomers->id, 'parent_show' => $manageCustomers->id, 'sidebar_link' => '1', 'appear' => '0']);
         // DISPLAY CUSTOMER
-        $displayCustomers = Permission::create(['name' => 'display_customers', 'display_name' => 'Show Customers', 'route' => 'customers', 'module' => 'customers', 'as' => 'customer.show', 'icon' => null, 'parent' => $manageCustomers->id, 'parent_original' => $manageCustomers->id, 'parent_show' => $manageCustomers->id, 'sidebar_link' => '1', 'appear' => '0']);
+        $displayCustomers = Permission::create(['name' => 'display_customers', 'display_name' => 'Show Customers', 'route' => 'customers', 'module' => 'customers', 'as' => 'customers.show', 'icon' => null, 'parent' => $manageCustomers->id, 'parent_original' => $manageCustomers->id, 'parent_show' => $manageCustomers->id, 'sidebar_link' => '1', 'appear' => '0']);
         // UPDATE CUSTOMER
-        $updateCustomers = Permission::create(['name' => 'update_customers', 'display_name' => 'Update Customers', 'route' => 'customers', 'module' => 'customers', 'as' => 'customer.edit', 'icon' => null, 'parent' => $manageCustomers->id, 'parent_original' => $manageCustomers->id, 'parent_show' => $manageCustomers->id, 'sidebar_link' => '1', 'appear' => '0']);
+        $updateCustomers = Permission::create(['name' => 'update_customers', 'display_name' => 'Update Customers', 'route' => 'customers', 'module' => 'customers', 'as' => 'customers.edit', 'icon' => null, 'parent' => $manageCustomers->id, 'parent_original' => $manageCustomers->id, 'parent_show' => $manageCustomers->id, 'sidebar_link' => '1', 'appear' => '0']);
         // DELETE CUSTOMER
-        $deleteCustomers = Permission::create(['name' => 'delete_customers', 'display_name' => 'Delete Customers', 'route' => 'customers', 'module' => 'customers', 'as' => 'customer.destroy', 'icon' => null, 'parent' => $manageCustomers->id, 'parent_original' => $manageCustomers->id, 'parent_show' => $manageCustomers->id, 'sidebar_link' => '1', 'appear' => '0']);
+        $deleteCustomers = Permission::create(['name' => 'delete_customers', 'display_name' => 'Delete Customers', 'route' => 'customers', 'module' => 'customers', 'as' => 'customers.destroy', 'icon' => null, 'parent' => $manageCustomers->id, 'parent_original' => $manageCustomers->id, 'parent_show' => $manageCustomers->id, 'sidebar_link' => '1', 'appear' => '0']);
 
 
         // SUPERVISORS
