@@ -17,7 +17,7 @@ class ProductReview extends Model
             'product_reviews.name' => 10,
             'product_reviews.email' => 10,
             'product_reviews.title' => 10,
-            'product_reviews.description' => 10,
+            'product_reviews.message' => 10,
         ]
     ];
     public function user():BelongsTo

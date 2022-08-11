@@ -2,94 +2,94 @@
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex">
-            <h6 class="m-0 font-weight-bold text-primary">Edit category {{ $productCategory->name }}</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Edit review on product {{ $productReview->product->name }}</h6>
             <div class="ml-auto">
-                <a href="{{ route('admin.product_categories.index') }}" class="btn btn-primary">
+                <a href="{{ route('admin.product_reviews.index') }}" class="btn btn-primary">
                     <span class="icon text-white-50">
                         <i class="fa fa-home"></i>
                     </span>
-                    <span class="text">Categories</span>
+                    <span class="text">Reviews</span>
                 </a>
             </div>
         </div>
         <br>
         <div class="container">
-            <form action="{{ route('admin.product_categories.update' , $productCategory->id ) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin.product_reviews.update' , $productReview->id ) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" name="name" value="{{ old('name' , $productCategory->name) }}" class="form-control">
+                            <input type="text" name="name" value="{{ old('name' , $productReview->name) }}" class="form-control">
                             @error('name')<span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
-                    <div class="col-3">
-                        <label for="parent_id">Parent</label>
-                        <select name="parent_id" class="form-control">
-                            <option value="">---</option>
-                            @forelse($main_categories as $main_category)
-                                <option value="{{ $main_category->id }}" {{ old('parent_id' , $productCategory->parent_id) == $main_category->id ? 'selected' : null }}>{{ $main_category->name }}</option>
-                            @empty
-
-                            @endforelse
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" value="{{ old('email' , $productReview->email) }}" class="form-control">
+                            @error('email')<span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label for="rating">Rating</label>
+                        <select name="rating" class="form-control">
+                            <option value="1" {{ old('rating' , $productReview->rating == 1 ? 'selected' : null) }}>1</option>
+                            <option value="2" {{ old('rating' , $productReview->rating == 2 ? 'selected' : null) }}>2</option>
+                            <option value="3" {{ old('rating' , $productReview->rating == 3 ? 'selected' : null) }}>3</option>
+                            <option value="4" {{ old('rating' , $productReview->rating == 4 ? 'selected' : null) }}>4</option>
+                            <option value="5" {{ old('rating' , $productReview->rating == 5 ? 'selected' : null) }}>5</option>
                         </select>
                         @error('parent_id')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
-                    <div class="col-3">
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-4">
                         <label for="status">Status</label>
                         <select name="status" class="form-control">
-                            <option value="1" {{ old('status' , $productCategory->status) == 1 ? 'selected' : null }}>Active</option>
-                            <option value="0" {{ old('status' , $productCategory->status) == 0 ? 'selected' : null }}>Inactive</option>
+                            <option value="1" {{ old('status' , $productReview->status) == 1 ? 'selected' : null }}>Active</option>
+                            <option value="0" {{ old('status' , $productReview->status) == 0 ? 'selected' : null }}>Inactive</option>
                         </select>
                         @error('status')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
-                </div>
-                <div class="row pt-4">
-                    <div class="col-12">
-                        <label for="cover">Cover</label>
-                        <br>
-                        <div class="file-loading">
-                            <input type="file" name="cover" id="category-image" class="file-input-overview">
-                            <span class="form-text text-muted">Image width shold be 500px x 500px</span>
-                            @error('cover')<span class="text-danger">{{ $message }}</span>@enderror
-                        </div>
+
+                    <div class="col-4">
+                        <label for="product_id">Product</label>
+                        <input type="text" value="{{ $productReview->product->name }}" class="form-control" readonly>
+                        <input type="hidden" name="product_id" value="{{ $productReview->product_id }}" class="form-control" readonly>
+                        @error('product_id')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+
+                    <div class="col-4">
+                        <label for="user_id">Customer</label>
+                        <input type="text" value="{{ $productReview->user_id != '' ? $productReview->user->full_name : '' }}" class="form-control" readonly>
+                        <input type="hidden" name="user_id" value="{{ $productReview->user_id ?? '' }}" class="form-control" readonly>
+                        @error('user_id')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <label for="title">title</label>
+                        <input type="text" name="title" value="{{ $productReview->title }}" class="form-control">
+                        @error('title')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <label for="message">Message</label>
+                        <textarea name="message" class="form-control">{{ old('message' , $productReview->message) }}</textarea>
+                        @error('message')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+                </div>
+
                 <div class="form-group pt-4">
-                    <button type="submit" name="submit" class="btn btn-primary">Update Category</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Update Review</button>
                 </div>
             </form>
         </div>
     </div>
-@endsection
-@section('script')
-    <script>
-        $(function(){
-            $("#category-image").fileinput({
-                theme: "fas",
-                maxFileCount: 1,
-                allowedFileTypes: ['image'],
-                showCancel: true,
-                showRemove: false,
-                showUpload: false,
-                overwriteInitial: false,
-                initialPreview:[
-                    "{{ asset('assets/product_categories/' . $productCategory->cover) }}"
-                ],
-                initialPreviewAsData: true,
-                initialPreviewFileType: 'image',
-                initialPreviewConfig: [
-                    {
-                        caption: "{{ $productCategory->cover }}" ,
-                        size: '1111' ,
-                        width: '120px' ,
-                        url: '{{ route('admin.product_categories.remove_image' , ['product_category_id' => $productCategory->id , '_token' => csrf_token()]) }}' ,
-                        key: {{ $productCategory->id }}
-                    }
-                ]
-            })
-        })
-    </script>
 @endsection

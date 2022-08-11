@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Back\ProductReviewRequest;
 use App\Models\ProductReview;
 use Illuminate\Http\Request;
 
@@ -41,12 +42,12 @@ class ProductReviewController extends Controller
         }
     }
 
-    public function show($id)
+    public function show(ProductReview $productReview)
     {
         if(!auth()->user()->ability('admin' , 'display_product_reviews')){
             return redirect('admin/index');
         }
-        return view('back.product_reviews.show');
+        return view('back.product_reviews.show' , compact('productReview'));
     }
 
     public function edit(ProductReview $productReview)
@@ -57,11 +58,13 @@ class ProductReviewController extends Controller
         return view('back.product_reviews.edit' , compact('productReview'));
     }
 
-    public function update(ProductCategoryRequest $request, ProductReview $productReview)
+    public function update(ProductReviewRequest $request, ProductReview $productReview)
     {
         if(!auth()->user()->ability('admin' , 'update_product_reviews')){
             return redirect('admin/index');
         }
+
+        $productReview->update($request->validated());
 
         return redirect()->route('admin.product_reviews.index')->with([
             'message' => 'Update successfully',
