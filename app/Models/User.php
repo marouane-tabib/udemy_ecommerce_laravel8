@@ -9,10 +9,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Mindscms\Entrust\Traits\EntrustUserWithPermissionsTrait;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable ,EntrustUserWithPermissionsTrait;
+    use HasApiTokens, HasFactory, Notifiable ,EntrustUserWithPermissionsTrait , SearchableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +31,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'status'
     ];
 
+    protected $searchable = [
+        'columns' => [
+            'user.full_name' => 10,
+        ]
+    ];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -53,6 +59,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getFullNameAttribute() : string {
         return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+    }
+
+    public function status(){
+        return $this->status ? 'Active' : 'Inactive';
     }
 
     public function reviews():HasMany

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Back\BackController;
+use App\Http\Controllers\Back\CustomerController;
 use App\Http\Controllers\Back\ProductCategoriesController;
 use App\Http\Controllers\Back\ProductController;
 use App\Http\Controllers\Back\ProductCouponController;
@@ -42,6 +43,8 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] ,  function(){
         Route::resource('tags' , TagController::class);
         Route::resource('product_coupons' , ProductCouponController::class);
         Route::resource('product_reviews' , ProductReviewController::class);
+
+        Route::resource('customer' , CustomerController::class);
     });
 });
 Auth::routes(['verify' => true]);
