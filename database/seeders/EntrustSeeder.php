@@ -52,9 +52,7 @@ class EntrustSeeder extends Seeder
 
         // PRODUCTS CATEGORIES
         $manageProductCategories = Permission::create(['name' => 'manage_product_categories', 'display_name' => 'Categories', 'route' => 'product_categories', 'module' => 'product_categories', 'as' => 'product_categories.index', 'icon' => 'fas fa-file-archive', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '5']);
-        $manageProductCategories->parent_show = $manageProductCategories->id ;
-        $manageProductCategories->save();
-
+        $manageProductCategories->parent_show = $manageProductCategories->id ;$manageProductCategories->save();
         // SHOW CATEGORIES
         $showProductCategories = Permission::create(['name' => 'show_product_categories', 'display_name' => 'Categories', 'route' => 'product_categories', 'module' => 'product_categories', 'as' => 'product_categories.index', 'icon' => 'fas fa-file-archive', 'parent' => $manageProductCategories->id, 'parent_original' => $manageProductCategories->id, 'parent_show' => $manageProductCategories->id, 'sidebar_link' => '1', 'appear' => '1']);
         // CREATE CATEGORIES
@@ -68,9 +66,7 @@ class EntrustSeeder extends Seeder
 
         // PRODUCTS TAGS
         $manageTags = Permission::create(['name' => 'manage_tags', 'display_name' => 'Tags', 'route' => 'tags', 'module' => 'tag', 'as' => 'tags.index', 'icon' => 'fas fa-tags', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '10']);
-        $manageTags->parent_show = $manageTags->id ;
-        $manageTags->save();
-
+        $manageTags->parent_show = $manageTags->id ;$manageTags->save();
         // SHOW TAGS
         $showTags = Permission::create(['name' => 'show_tags', 'display_name' => 'Tags', 'route' => 'tags', 'module' => 'tag', 'as' => 'tags.index', 'icon' => 'fas fa-tags', 'parent' => $manageTags->id, 'parent_original' => $manageTags->id, 'parent_show' => $manageTags->id, 'sidebar_link' => '1', 'appear' => '1']);
         // CREATE TAGS
@@ -98,8 +94,8 @@ class EntrustSeeder extends Seeder
 
 
         // PRODUCTS COUPONS
-        $manageProducts = Permission::create(['name' => 'manage_products_coupons', 'display_name' => 'Coupons', 'route' => 'product_coupons', 'module' => 'product_coupons', 'as' => 'product_coupons.index', 'icon' => 'fas fa-percent', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '20']);
-        $manageProducts->parent_show = $manageProducts->id ;$manageProducts->save();
+        $manageProductsCoupons = Permission::create(['name' => 'manage_products_coupons', 'display_name' => 'Coupons', 'route' => 'product_coupons', 'module' => 'product_coupons', 'as' => 'product_coupons.index', 'icon' => 'fas fa-percent', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '20']);
+        $manageProductsCoupons->parent_show = $manageProductsCoupons->id ;$manageProductsCoupons->save();
         // PRODUCTS COUPONS
         $showProductsCoupons = Permission::create(['name' => 'show_product_coupons', 'display_name' => 'Products Coupons', 'route' => 'product_coupons', 'module' => 'product', 'as' => 'product_coupons.index', 'icon' => 'fas fa-percent', 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '1']);
         // CREATE PRODUCTS COUPONS
@@ -113,8 +109,8 @@ class EntrustSeeder extends Seeder
 
 
         // PRODUCTS REVIEWS
-        $manageProducts = Permission::create(['name' => 'manage_products_reviews', 'display_name' => 'Reviews', 'route' => 'product_reviews', 'module' => 'product_reviews', 'as' => 'product_reviews.index', 'icon' => 'fas fa-comment', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '20']);
-        $manageProducts->parent_show = $manageProducts->id ;$manageProducts->save();
+        $manageProductsReviews = Permission::create(['name' => 'manage_products_reviews', 'display_name' => 'Reviews', 'route' => 'product_reviews', 'module' => 'product_reviews', 'as' => 'product_reviews.index', 'icon' => 'fas fa-comment', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '20']);
+        $manageProductsReviews->parent_show = $manageProductsReviews->id ;$manageProductsReviews->save();
         // PRODUCTS REVIEWS
         $showProductsReviews = Permission::create(['name' => 'show_product_reviews', 'display_name' => 'Products Reviews', 'route' => 'product_reviews', 'module' => 'product', 'as' => 'product_reviews.index', 'icon' => 'fas fa-comment', 'parent' => $manageProducts->id, 'parent_original' => $manageProducts->id, 'parent_show' => $manageProducts->id, 'sidebar_link' => '1', 'appear' => '1']);
         // CREATE PRODUCTS REVIEWS
