@@ -4,6 +4,7 @@ use App\Http\Controllers\Back\BackController;
 use App\Http\Controllers\Back\ProductCategoriesController;
 use App\Http\Controllers\Back\ProductController;
 use App\Http\Controllers\Back\ProductCouponController;
+use App\Http\Controllers\Back\ProductReviewController;
 use App\Http\Controllers\Back\TagController;
 use App\Http\Controllers\Front\FrontendController;
 use Illuminate\Support\Facades\Auth;
@@ -40,6 +41,7 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] ,  function(){
         Route::post('/products/remove-image' , [ProductController::class , 'remove_image'])->name('products.remove_image');
         Route::resource('tags' , TagController::class);
         Route::resource('product_coupons' , ProductCouponController::class);
+        Route::resource('product_reviews' , ProductReviewController::class);
     });
 });
 Auth::routes(['verify' => true]);
