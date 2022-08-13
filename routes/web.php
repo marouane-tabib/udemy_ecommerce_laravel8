@@ -6,6 +6,7 @@ use App\Http\Controllers\Back\ProductCategoriesController;
 use App\Http\Controllers\Back\ProductController;
 use App\Http\Controllers\Back\ProductCouponController;
 use App\Http\Controllers\Back\ProductReviewController;
+use App\Http\Controllers\Back\SupervisorController;
 use App\Http\Controllers\Back\TagController;
 use App\Http\Controllers\Front\FrontendController;
 use Illuminate\Support\Facades\Auth;
@@ -46,6 +47,9 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] ,  function(){
 
         Route::resource('customers' , CustomerController::class);
         Route::post('/customers/remove-image' , [CustomerController::class , 'remove_image'])->name('customers.remove_image');
+
+        Route::resource('supervisors' , SupervisorController::class);
+        Route::post('/supervisors/remove-image' , [SupervisorController::class , 'remove_image'])->name('supervisors.remove_image');
 
     });
 });

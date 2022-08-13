@@ -139,18 +139,18 @@ class EntrustSeeder extends Seeder
 
 
         // SUPERVISORS
-        // $manageSupervisors = Permission::create(['name' => 'manage_supervisors', 'display_name' => 'Supervisors', 'route' => 'supervisors', 'module' => 'supervisors', 'as' => 'supervisor.index', 'icon' => 'fas fa-comment', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '20']);
-        // $manageSupervisors->parent_show = $manageSupervisors->id ;$manageSupervisors->save();
+        $manageSupervisors = Permission::create(['name' => 'manage_supervisors', 'display_name' => 'Supervisors', 'route' => 'supervisors', 'module' => 'supervisors', 'as' => 'supervisors.index', 'icon' => 'fas fa-comment', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '100']);
+        $manageSupervisors->parent_show = $manageSupervisors->id ;$manageSupervisors->save();
         // SHOW SUPERVISORS
-        // $showSupervisors = Permission::create(['name' => 'show_supervisors', 'display_name' => 'Supervisors', 'route' => 'supervisors', 'module' => 'supervisors', 'as' => 'supervisor.index', 'icon' => 'fas fa-comment', 'parent' => $manageSupervisors->id, 'parent_original' => $manageSupervisors->id, 'parent_show' => $manageSupervisors->id, 'sidebar_link' => '1', 'appear' => '1']);
+        $showSupervisors = Permission::create(['name' => 'show_supervisors', 'display_name' => 'Supervisors', 'route' => 'supervisors', 'module' => 'supervisors', 'as' => 'supervisors.index', 'icon' => 'fas fa-comment', 'parent' => $manageSupervisors->id, 'parent_original' => $manageSupervisors->id, 'parent_show' => $manageSupervisors->id, 'sidebar_link' => '1', 'appear' => '1']);
         // CREATE SUPERVISORS
-        // $createSupervisors = Permission::create(['name' => 'create_supervisors', 'display_name' => 'Create Supervisors', 'route' => 'supervisors', 'module' => 'supervisors', 'as' => 'supervisor.create', 'icon' => 'fas fa-comment', 'parent' => $manageSupervisors->id, 'parent_original' => $manageSupervisors->id, 'parent_show' => $manageSupervisors->id, 'sidebar_link' => '1', 'appear' => '0']);
+        $createSupervisors = Permission::create(['name' => 'create_supervisors', 'display_name' => 'Create Supervisors', 'route' => 'supervisors', 'module' => 'supervisors', 'as' => 'supervisors.create', 'icon' => 'fas fa-comment', 'parent' => $manageSupervisors->id, 'parent_original' => $manageSupervisors->id, 'parent_show' => $manageSupervisors->id, 'sidebar_link' => '1', 'appear' => '0']);
         // DISPLAY SUPERVISORS
-        // $displaySupervisors = Permission::create(['name' => 'display_supervisors', 'display_name' => 'Show Supervisors', 'route' => 'supervisors', 'module' => 'supervisors', 'as' => 'supervisor.show', 'icon' => null, 'parent' => $manageSupervisors->id, 'parent_original' => $manageSupervisors->id, 'parent_show' => $manageSupervisors->id, 'sidebar_link' => '1', 'appear' => '0']);
+        $displaySupervisors = Permission::create(['name' => 'display_supervisors', 'display_name' => 'Show Supervisors', 'route' => 'supervisors', 'module' => 'supervisors', 'as' => 'supervisors.show', 'icon' => null, 'parent' => $manageSupervisors->id, 'parent_original' => $manageSupervisors->id, 'parent_show' => $manageSupervisors->id, 'sidebar_link' => '1', 'appear' => '0']);
         // UPDATE SUPERVISORS
-        // $updateSupervisors = Permission::create(['name' => 'update_supervisors', 'display_name' => 'Update Supervisors', 'route' => 'supervisors', 'module' => 'supervisors', 'as' => 'supervisor.edit', 'icon' => null, 'parent' => $manageSupervisors->id, 'parent_original' => $manageSupervisors->id, 'parent_show' => $manageSupervisors->id, 'sidebar_link' => '1', 'appear' => '0']);
+        $updateSupervisors = Permission::create(['name' => 'update_supervisors', 'display_name' => 'Update Supervisors', 'route' => 'supervisors', 'module' => 'supervisors', 'as' => 'supervisors.edit', 'icon' => null, 'parent' => $manageSupervisors->id, 'parent_original' => $manageSupervisors->id, 'parent_show' => $manageSupervisors->id, 'sidebar_link' => '1', 'appear' => '0']);
         // DELETE SUPERVISORS
-        // $deleteSupervisors = Permission::create(['name' => 'delete_supervisors', 'display_name' => 'Delete Supervisors', 'route' => 'supervisors', 'module' => 'supervisors', 'as' => 'supervisor.destroy', 'icon' => null, 'parent' => $manageSupervisors->id, 'parent_original' => $manageSupervisors->id, 'parent_show' => $manageSupervisors->id, 'sidebar_link' => '1', 'appear' => '0']);
+        $deleteSupervisors = Permission::create(['name' => 'delete_supervisors', 'display_name' => 'Delete Supervisors', 'route' => 'supervisors', 'module' => 'supervisors', 'as' => 'supervisors.destroy', 'icon' => null, 'parent' => $manageSupervisors->id, 'parent_original' => $manageSupervisors->id, 'parent_show' => $manageSupervisors->id, 'sidebar_link' => '1', 'appear' => '0']);
 
     }
 

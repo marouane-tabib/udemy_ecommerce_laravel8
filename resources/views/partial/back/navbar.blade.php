@@ -164,6 +164,9 @@
                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
             </div>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.supervisors.index') }}">Supervisors</a>
+        </li>
 
         <div class="topbar-divider d-none d-sm-block"></div>
 
