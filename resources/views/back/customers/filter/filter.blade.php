@@ -20,7 +20,8 @@
                     <select name="sort_by" class="form-control">
                         <option value="">---</option>
                         <option value="id" {{ old('sort_by' , request()->input('sort_by')) == 'id' ? 'selected' : '' }}>ID</option>
-                        <option value="name" {{ old('sort_by' , request()->input('sort_by')) == 'name' ? 'selected' : '' }}>Name</option>
+                        <option value="first_name" {{ old('sort_by' , request()->input('sort_by')) == 'first_name' ? 'selected' : '' }}>First Name</option>
+                        <option value="last_name" {{ old('sort_by' , request()->input('sort_by')) == 'last_name' ? 'selected' : '' }}>Last Name</option>
                         <option value="created_at" {{ old('sort_by' , request()->input('sort_by')) == 'created_at' ? 'selected' : '' }}>Created at</option>
                     </select>
                 </div>

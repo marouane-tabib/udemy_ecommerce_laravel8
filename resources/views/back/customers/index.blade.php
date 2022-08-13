@@ -35,7 +35,7 @@
             @forelse($customers as $customer)
                 <tr>
                     <td>
-                        @if($customer->user != '')
+                        @if($customer->user_image)
                             <img src="{{ asset('assets/users/'.$customer->user_image) }}" alt="{{ $customer->full_name }}" width="60" height="60">
                             @else
                             <img src="{{ asset('assets/users/avatar.svg') }}" alt="{{ $customer->full_name }}" width="40" height="40">

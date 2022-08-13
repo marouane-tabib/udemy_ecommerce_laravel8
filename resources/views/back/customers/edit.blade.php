@@ -2,63 +2,94 @@
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex">
-            <h6 class="m-0 font-weight-bold text-primary">Edit category {{ $productCategory->name }}</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Edit customer</h6>
             <div class="ml-auto">
-                <a href="{{ route('admin.product_categories.index') }}" class="btn btn-primary">
+                <a href="{{ route('admin.customers.index') }}" class="btn btn-primary">
                     <span class="icon text-white-50">
                         <i class="fa fa-home"></i>
                     </span>
-                    <span class="text">Categories</span>
+                    <span class="text">Customers</span>
                 </a>
             </div>
         </div>
         <br>
         <div class="container">
-            <form action="{{ route('admin.product_categories.update' , $productCategory->id ) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin.customers.update' , $customer->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-3">
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" name="name" value="{{ old('name' , $productCategory->name) }}" class="form-control">
-                            @error('name')<span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="first_name">First Name</label>
+                            <input type="text" name="first_name" value="{{ old('first_name' , $customer->first_name) }}" class="form-control">
+                            @error('first_name')<span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="col-3">
-                        <label for="parent_id">Parent</label>
-                        <select name="parent_id" class="form-control">
-                            <option value="">---</option>
-                            @forelse($main_categories as $main_category)
-                                <option value="{{ $main_category->id }}" {{ old('parent_id' , $productCategory->parent_id) == $main_category->id ? 'selected' : null }}>{{ $main_category->name }}</option>
-                            @empty
-
-                            @endforelse
-                        </select>
-                        @error('parent_id')<span class="text-danger">{{ $message }}</span>@enderror
+                        <div class="form-group">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" name="last_name" value="{{ old('last_name' , $customer->last_name) }}" class="form-control">
+                            @error('last_name')<span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
                     </div>
                     <div class="col-3">
-                        <label for="status">Status</label>
-                        <select name="status" class="form-control">
-                            <option value="1" {{ old('status' , $productCategory->status) == 1 ? 'selected' : null }}>Active</option>
-                            <option value="0" {{ old('status' , $productCategory->status) == 0 ? 'selected' : null }}>Inactive</option>
-                        </select>
-                        @error('status')<span class="text-danger">{{ $message }}</span>@enderror
+                        <div class="form-group">
+                            <label for="username">User Name</label>
+                            <input type="text" name="username" value="{{ old('username' , $customer->username) }}" class="form-control">
+                            @error('username')<span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" value="{{ old('email' , $customer->email) }}" class="form-control">
+                            @error('email')<span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
                     </div>
                 </div>
+
+                <div class="row pt-4">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" value="{{ old('password' , $customer->password) }}" class="form-control">
+                            @error('password')<span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select name="status" class="form-control">
+                                <option value="1" {{ old('status' , $customer->status) == 1 ? 'selected' : null }}>Active</option>
+                                <option value="0" {{ old('status' , $customer->status) == 0 ? 'selected' : null }}>Inactive</option>
+                            </select>
+                            @error('status')<span class="text-danger">{{ $message }}</span>@enderror
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="mobile">Mobile</label>
+                            <input type="text" name="mobile" value="{{ old('mobile' , $customer->mobile) }}" class="form-control">
+                            @error('mobile')<span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+
                 <div class="row pt-4">
                     <div class="col-12">
-                        <label for="cover">Cover</label>
+                        <label for="user-image">User image</label>
                         <br>
                         <div class="file-loading">
-                            <input type="file" name="cover" id="category-image" class="file-input-overview">
-                            <span class="form-text text-muted">Image width shold be 500px x 500px</span>
-                            @error('cover')<span class="text-danger">{{ $message }}</span>@enderror
+                            <input type="file" name="user_image" id="customer-image" class="file-input-overview">
+                            <span class="form-text text-muted">Image width shold be 300px x 300px</span>
+                            @error('user_image')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                     </div>
                 </div>
+
                 <div class="form-group pt-4">
-                    <button type="submit" name="submit" class="btn btn-primary">Update Category</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Update Customer</button>
                 </div>
             </form>
         </div>
@@ -67,7 +98,7 @@
 @section('script')
     <script>
         $(function(){
-            $("#category-image").fileinput({
+            $("#customer-image").fileinput({
                 theme: "fas",
                 maxFileCount: 1,
                 allowedFileTypes: ['image'],
@@ -76,18 +107,22 @@
                 showUpload: false,
                 overwriteInitial: false,
                 initialPreview:[
-                    "{{ asset('assets/product_categories/' . $productCategory->cover) }}"
+                    @if($customer->user_image != '')
+                        "{{ asset('assets/users/' . $customer->user_image) }}"
+                    @endif
                 ],
                 initialPreviewAsData: true,
                 initialPreviewFileType: 'image',
                 initialPreviewConfig: [
-                    {
-                        caption: "{{ $productCategory->cover }}" ,
-                        size: '1111' ,
-                        width: '120px' ,
-                        url: '{{ route('admin.product_categories.remove_image' , ['product_category_id' => $productCategory->id , '_token' => csrf_token()]) }}' ,
-                        key: {{ $productCategory->id }}
-                    }
+                    @if($customer->user_image != '')
+                        {
+                            caption: "{{ $customer->user_image }}" ,
+                            size: '1111' ,
+                            width: '120px' ,
+                            url: '{{ route('admin.customers.remove_image' , ['customer_id' => $customer->id , '_token' => csrf_token()]) }}' ,
+                            key: {{ $customer->id }}
+                        }
+                    @endif
                 ]
             })
         })

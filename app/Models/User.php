@@ -31,12 +31,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'status'
     ];
 
-    protected $searchable = [
-        'columns' => [
-            'users.first_name' => 10,
-            'users.username' => 10,
-        ]
-    ];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -56,6 +50,16 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $searchable = [
+        'columns' => [
+            'users.first_name' => 10,
+            'users.last_name' => 10,
+            'users.username' => 10,
+            'users.email' => 10,
+            'users.mobile' => 10,
+        ]
     ];
 
     public function getFullNameAttribute() : string {

@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Back\CustomerRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class CustomerController extends Controller
 {
@@ -34,75 +39,89 @@ class CustomerController extends Controller
         if(!auth()->user()->ability('admin' , 'create_customers')){
             return redirect('admin/index');
         }
-
-        $main_categories = ProductCategory::whereNull('parent_id')->get(['id' , 'name']);
-        return view('back.customers.create' , compact('main_categories'));
+        return view('back.customers.create');
     }
 
-    public function store(ProductCategoryRequest $request)
+    public function store(CustomerRequest $request)
     {
         if(!auth()->user()->ability('admin' , 'create_customers')){
             return redirect('admin/index');
         }
 
-        $input['name'] = $request->name;
+        $input['first_name'] = $request->first_name;
+        $input['last_name'] = $request->last_name;
+        $input['username'] = $request->username;
+        $input['email'] = $request->email;
+        // $input['email_verified_at'] = now();
+        $input['mobile'] = $request->mobile;
+        $input['password'] = bcrypt($request->password);
         $input['status'] = $request->status;
-        $input['parent_id'] = $request->parent_id;
-        if($image = $request->file('cover')){
-            $file_name = Str::slug($request->name)."-".time().".".$image->getClientOriginalExtension();
-            $path = public_path('assets\customers/' . $file_name);
-            Image::make($image->getRealPath())->resize(500, null , function ($constraint){
+
+        if($image = $request->file('user_image')){
+            $file_name = Str::slug($request->username)."-".time().".".$image->getClientOriginalExtension();
+            $path = public_path('/assets/users/' . $file_name);
+            Image::make($image->getRealPath())->resize(300, 300 , function ($constraint){
                 $constraint->aspectRatio();
             })->save($path, 100);
-            $input['cover'] = $file_name;
+            $input['user_image'] = $file_name;
         }
 
-        ProductCategory::create($input);
+        $customer = User::create($input);
+        $customer->markEmailAsVerified();
+        $customer->attachRole(Role::whereName('customer')->first()->id);
         return redirect()->route('admin.customers.index')->with([
             'message' => 'Created successfully',
             'alert-type'=> 'success'
         ]);
     }
 
-    public function show($id)
+    public function show(User $customer)
     {
         if(!auth()->user()->ability('admin' , 'display_customers')){
             return redirect('admin/index');
         }
-        return view('back.customers.show');
+        return view('back.customers.show' , compact('customer'));
     }
 
-    public function edit(ProductCategory $productCategory)
-    {
-        if(!auth()->user()->ability('admin' , 'update_customers')){
-            return redirect('admin/index');
-        }
-        $main_categories = ProductCategory::whereNull('parent_id')->get(['id' , 'name']);
-        return view('back.customers.edit' , compact('main_categories' , 'productCategory'));
-    }
-
-    public function update(ProductCategoryRequest $request, ProductCategory $productCategory)
+    public function edit(User $customer)
     {
         if(!auth()->user()->ability('admin' , 'update_customers')){
             return redirect('admin/index');
         }
 
-        $input['name'] = $request->name;
-        $input['slug'] = null ;
+        return view('back.customers.edit' , compact('customer'));
+    }
+
+    public function update(CustomerRequest $request, User $customer)
+    {
+        if(!auth()->user()->ability('admin' , 'update_customers')){
+            return redirect('admin/index');
+        }
+
+        $input['first_name'] = $request->first_name;
+        $input['last_name'] = $request->last_name;
+        $input['username'] = $request->username;
+        $input['email'] = $request->email;
+        $input['mobile'] = $request->mobile;
+        if(trim($request->password) != ''){
+            $input['password'] = bcrypt($request->password);
+        }
         $input['status'] = $request->status;
-        $input['parent_id'] = $request->parent_id;
-        if($image = $request->file('cover')){
-            if ($productCategory->cover != null and File::exists('assets/customers/'. $productCategory->cover)){
-                unlink('assets/customers/' . $productCategory->cover);
+
+        if($image = $request->file('user_image')){
+            if ($customer->user_image != null and File::exists('assets/users/'. $customer->user_image)){
+                unlink('assets/users/' . $customer->user_image);
             }
-            $file_name = Str::slug($request->name)."-".time().".".$image->getClientOriginalExtension();
-            $path = public_path('assets\customers/' . $file_name);
-            Image::make($image->getRealPath())->resize(500, null , function ($constraint){
+            $file_name = Str::slug($request->username)."-".time().".".$image->getClientOriginalExtension();
+            $path = public_path('/assets/users/' . $file_name);
+            Image::make($image->getRealPath())->resize(300, 300 , function ($constraint){
                 $constraint->aspectRatio();
             })->save($path, 100);
-            $input['cover'] = $file_name;
+            $input['user_image'] = $file_name;
         }
-        $productCategory->update($input);
+
+        $customer->update($input);
+
 
         return redirect()->route('admin.customers.index')->with([
             'message' => 'Update successfully',
@@ -111,15 +130,15 @@ class CustomerController extends Controller
 
     }
 
-    public function destroy(ProductCategory $productCategory)
+    public function destroy(User $customer)
     {
         if(!auth()->user()->ability('admin' , 'delete_customers')){
             return redirect('admin/index');
         }
-        if (File::exists('assets/customers/'. $productCategory->cover)){
-            unlink('assets/customers/' . $productCategory->cover);
+        if (File::exists('assets/users/'. $customer->user_image)){
+            unlink('assets/users/' . $customer->user_image);
         }
-        $productCategory->delete();
+        $customer->delete();
 
         return redirect()->route('admin.customers.index')->with([
             'message' => 'Delete successfully',
@@ -131,11 +150,11 @@ class CustomerController extends Controller
         if(!auth()->user()->ability('admin' , 'delete_customers')){
             return redirect('admin/index');
         }
-        $category = ProductCategory::findOrFail($request->product_category_id);
-        if (File::exists('assets/customers/'. $category->cover)){
-            unlink('assets/customers/' . $category->cover);
-            $category->cover = null;
-            $category->save();
+        $customer = User::findOrFail($request->customer_id);
+        if (File::exists('assets/users/'. $customer->user_image)){
+            unlink('assets/users/' . $customer->user_image);
+            $customer->user_image = null;
+            $customer->save();
         }
         return true;
     }

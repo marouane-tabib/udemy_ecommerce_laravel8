@@ -45,6 +45,8 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] ,  function(){
         Route::resource('product_reviews' , ProductReviewController::class);
 
         Route::resource('customers' , CustomerController::class);
+        Route::post('/customers/remove-image' , [CustomerController::class , 'remove_image'])->name('customers.remove_image');
+
     });
 });
 Auth::routes(['verify' => true]);

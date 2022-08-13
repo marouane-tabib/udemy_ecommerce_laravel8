@@ -40,7 +40,7 @@ class EntrustSeeder extends Seeder
                 'email_verified_at' => now(),
                 'mobile' => $faker->phoneNumber,
                 'password' => bcrypt('123123123'),
-                'user_image' =>1,
+                'user_image' => null,
                 'remember_token' => Str::random(10)
             ]);
             $random_customer->attachRole($customerRole);
