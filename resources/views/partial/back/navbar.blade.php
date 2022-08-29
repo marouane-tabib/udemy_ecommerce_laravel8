@@ -165,7 +165,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin.supervisors.index') }}">Supervisors</a>
+            <a class="nav-link" href="{{ route('admin.supervisors.index') }}">Supervisors</a>
         </li>
 
         <div class="topbar-divider d-none d-sm-block"></div>

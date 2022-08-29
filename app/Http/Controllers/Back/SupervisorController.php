@@ -7,6 +7,7 @@ use App\Http\Requests\Back\SupervisorsRequest;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserPermissions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -42,7 +43,7 @@ class SupervisorController extends Controller
             return redirect('admin/index');
         }
         $permissions = Permission::get(['id' , 'display_name']);
-        return view('back.supervisors.create');
+        return view('back.supervisors.create' , compact('permissions'));
     }
 
     public function store(SupervisorsRequest $request)
@@ -72,8 +73,10 @@ class SupervisorController extends Controller
         $supervisor = User::create($input);
         $supervisor->markEmailAsVerified();
         $supervisor->attachRole(Role::whereName('supervisor')->first()->id);
-        // Add
 
+        if(isset($request->permissions) && count($request->permissions) > 0){
+            $supervisor->permissions()->sync($request->permissions) > 0;
+        }
         return redirect()->route('admin.supervisors.index')->with([
             'message' => 'Created successfully',
             'alert-type'=> 'success'
@@ -94,7 +97,8 @@ class SupervisorController extends Controller
             return redirect('admin/index');
         }
         $permissions = Permission::get(['id' , 'display_name']);
-        return view('back.supervisors.edit' , compact('supervisor' , 'permissions'));
+        $supervisorPermissions = UserPermissions::whereUserId($supervisor->id)->pluck('permission_id')->toArray();
+        return view('back.supervisors.edit' , compact('supervisor' , 'permissions' , 'supervisorPermissions'));
     }
 
     public function update(SupervisorsRequest $request, User $supervisor)
@@ -107,10 +111,9 @@ class SupervisorController extends Controller
         $input['last_name'] = $request->last_name;
         $input['username'] = $request->username;
         $input['email'] = $request->email;
+        // $input['email_verified_at'] = now();
         $input['mobile'] = $request->mobile;
-        if(trim($request->password) != ''){
-            $input['password'] = bcrypt($request->password);
-        }
+        if(trim($request->password) != ''){$input['password'] = bcrypt($request->password);}
         $input['status'] = $request->status;
 
         if($image = $request->file('user_image')){
@@ -126,7 +129,10 @@ class SupervisorController extends Controller
         }
 
         $supervisor->update($input);
-// up
+
+        if(isset($request->permissions) && count($request->permissions) > 0){
+            $supervisor->permissions()->sync($request->permissions) > 0;
+        }
 
         return redirect()->route('admin.supervisors.index')->with([
             'message' => 'Update successfully',

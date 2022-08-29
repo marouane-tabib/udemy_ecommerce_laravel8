@@ -69,6 +69,13 @@
                             @error('status')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                     </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="mobile">Mobile</label>
+                            <input type="text" name="mobile" value="{{ old('mobile') }}" class="form-control">
+                            @error('mobile')<span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
                     <div class="col-3"></div>
                 </div>
 
@@ -78,7 +85,7 @@
                             <label for="permissions">Permissions</label>
                             <select name="permissions[]" class="form-control select-multiple-tags" multiple>
                                 @forelse($permissions as $permission)
-                                    <option value="{{ $permission->id }}" {{ old('$permission') == $permission->id ? 'selected' : null }}>{{ $permission->display_name }}</option>
+                                    <option value="{{ $permission->id }}" {{ in_array($permission->id , old('$permissions',[])) ? 'selected' : null }}>{{ $permission->display_name }}</option>
                                 @empty
                                 @endforelse
                             </select>
@@ -88,13 +95,6 @@
                 </div>
 
                 <div class="row pt-4">
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label for="mobile">Mobile</label>
-                            <input type="text" name="mobile" value="{{ old('mobile') }}" class="form-control">
-                            @error('mobile')<span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-                    </div>
                     <div class="col-12">
                         <label for="user-image">User image</label>
                         <br>

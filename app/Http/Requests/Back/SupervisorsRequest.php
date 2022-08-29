@@ -43,11 +43,11 @@ class SupervisorsRequest extends FormRequest
                 return [
                     'first_name' => 'required',
                     'last_name' => 'required',
-                    'username' => 'required|max:20|unique:users,id,'.$this->route()->customer->id,
-                    'email' => 'required|email|max:200|unique:users,id,'.$this->route()->customer->id,
-                    'mobile' => 'required|numeric|unique:users,id,'.$this->route()->customer->id,
+                    'username' => 'required|max:20|unique:users,id,'.$this->route()->supervisor->id,
+                    'email' => 'required|email|max:200|unique:users,id,'.$this->route()->supervisor->id,
+                    'mobile' => 'required|numeric|unique:users,id,'.$this->route()->supervisor->id,
                     'status' => 'required',
-                    'password' => 'required|min:8',
+                    'password' => 'nullable|min:8',
                     'user_image' => 'nullable|mimes:jpg,jpeg,png,svg|max:2000',
                 ];
             }

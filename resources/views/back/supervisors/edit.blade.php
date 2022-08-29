@@ -1,8 +1,13 @@
 @extends('layouts.admin')
+
+@section('style')
+    <link href="{{ asset('back/vendor/select2/css/select2.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex">
-            <h6 class="m-0 font-weight-bold text-primary">Edit supervisor</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Update supervisor ({{ $supervisor->first_name }})</h6>
             <div class="ml-auto">
                 <a href="{{ route('admin.supervisors.index') }}" class="btn btn-primary">
                     <span class="icon text-white-50">
@@ -52,13 +57,12 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" name="password" value="{{ old('password' , $supervisor->password) }}" class="form-control">
+                            <input type="password" name="password" value="{{ old('password') }}" class="form-control">
                             @error('password')<span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="col-3">
-                        <div class="form-group">
-                            <label for="status">Status</label>
+                        <div class="form-group"><label for="status">Status</label>
                             <select name="status" class="form-control">
                                 <option value="1" {{ old('status' , $supervisor->status) == 1 ? 'selected' : null }}>Active</option>
                                 <option value="0" {{ old('status' , $supervisor->status) == 0 ? 'selected' : null }}>Inactive</option>
@@ -74,6 +78,20 @@
                         </div>
                     </div>
                     <div class="col-3"></div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="permissions">Permissions</label>
+                            <select name="permissions[]" class="form-control select-multiple-tags" multiple="multiple">
+                                @forelse($permissions as $permission)
+                                    <option value="{{ $permission->id }}" {{ in_array($permission->id , old('permissions', $supervisorPermissions)) ? 'selected' : null }}>{{ $permission->display_name }}</option>
+                                @empty
+                                @endforelse
+                            </select>
+                            @error('permissions')<span class="text-danger">{{ $message }}</span>@enderror
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row pt-4">
@@ -95,9 +113,18 @@
         </div>
     </div>
 @endsection
+
 @section('script')
+    <script src="{{ asset('back/vendor/select2/js/select2.full.min.js') }}"></script>
     <script>
         $(function(){
+
+            $('.select-multiple-tags').select2({
+                minimumResultsForSearch: Infinity,
+                tags: true,
+                closeOnSelect: false
+            });
+
             $("#supervisor-image").fileinput({
                 theme: "fas",
                 maxFileCount: 1,
@@ -114,7 +141,7 @@
                 initialPreviewAsData: true,
                 initialPreviewFileType: 'image',
                 initialPreviewConfig: [
-                    @if($supervisor->user_image != '')
+                        @if($supervisor->user_image != '')
                         {
                             caption: "{{ $supervisor->user_image }}" ,
                             size: '1111' ,
@@ -125,6 +152,6 @@
                     @endif
                 ]
             })
-        })
+        });
     </script>
 @endsection
