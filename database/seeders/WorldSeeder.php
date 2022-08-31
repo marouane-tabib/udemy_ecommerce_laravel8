@@ -1,0 +1,37 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class WorldSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {   
+        // Set the path of your .sql file
+        $world = public_path('udemy_ecommerce_world.sql');
+        $countries = public_path('countries.sql');
+        $states = public_path('states.sql');
+        $cities = public_path('cities.sql');
+
+        $db = [
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
+            'host' => env('DB_HOST'),
+            'database' => env('DB_DATABASE')
+        ];
+        
+       //$sql = storage_path('a_id_territory.sql');
+
+       exec("mysql --user={$db['username']} --password={$db['password']} --host={$db['host']} --database {$db['database']} < $countries");
+
+        // exec("mysql --user={$db['username']} --password={$db['password']} --host={$db['host']} --database={$db['database']} < $countries");
+        // exec("mysql --user={$db['username']} --password={$db['password']} --host={$db['host']} --database={$db['database']} < $states");
+        // exec("mysql --user={$db['username']} --password={$db['password']} --host={$db['host']} --database={$db['database']} < $cities");
+    }
+}
