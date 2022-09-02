@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Back\BackController;
 use App\Http\Controllers\Back\CustomerController;
+use App\Http\Controllers\Back\CustomerAddressController;
 use App\Http\Controllers\Back\ProductCategoriesController;
 use App\Http\Controllers\Back\ProductController;
 use App\Http\Controllers\Back\ProductCouponController;
@@ -50,6 +51,7 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] ,  function(){
 
         Route::resource('customers' , CustomerController::class);
         Route::post('/customers/remove-image' , [CustomerController::class , 'remove_image'])->name('customers.remove_image');
+        Route::resource('customer_address' , CustomerAddressController::class);
 
         Route::resource('supervisors' , SupervisorController::class);
         Route::post('/supervisors/remove-image' , [SupervisorController::class , 'remove_image'])->name('supervisors.remove_image');

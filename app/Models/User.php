@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\UserAddress;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -75,4 +76,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(ProductReview::class);
     }
 
+    public function addresses():HasMany
+    {
+        return $this->hasMany(UserAddress::class);
+    }
 }

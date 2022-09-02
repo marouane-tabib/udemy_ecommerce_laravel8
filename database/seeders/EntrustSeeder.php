@@ -138,6 +138,20 @@ class EntrustSeeder extends Seeder
         $deleteCustomers = Permission::create(['name' => 'delete_customers', 'display_name' => 'Delete Customers', 'route' => 'customers', 'module' => 'customers', 'as' => 'customers.destroy', 'icon' => null, 'parent' => $manageCustomers->id, 'parent_original' => $manageCustomers->id, 'parent_show' => $manageCustomers->id, 'sidebar_link' => '1', 'appear' => '0']);
 
 
+        // CUSTOMER ADDRESS
+        $manageCustomersAddresses = Permission::create(['name' => 'manage_customers_addresses', 'display_name' => 'CustomersAddresses', 'route' => 'customers_addresses', 'module' => 'customers_addresses', 'as' => 'customers_addresses.index', 'icon' => 'fas fa-map-marked-alt', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '40']);
+        $manageCustomersAddresses->parent_show = $manageCustomersAddresses->id ;$manageCustomersAddresses->save();
+        // SHOW CUSTOMER ADDRESS
+        $showCustomersAddresses = Permission::create(['name' => 'show_customers_addresses', 'display_name' => 'CustomersAddresses', 'route' => 'customers_addresses', 'module' => 'customers_addresses', 'as' => 'customers_addresses.index', 'icon' => 'fas fa-map-marked-alt', 'parent' => $manageCustomersAddresses->id, 'parent_original' => $manageCustomersAddresses->id, 'parent_show' => $manageCustomersAddresses->id, 'sidebar_link' => '1', 'appear' => '1']);
+        // CREATE CUSTOMER ADDRESS
+        $createCustomersAddresses = Permission::create(['name' => 'create_customers_addresses', 'display_name' => 'Create CustomersAddresses', 'route' => 'customers_addresses', 'module' => 'customers_addresses', 'as' => 'customers_addresses.create', 'icon' => 'fas fa-map-marked-alt', 'parent' => $manageCustomersAddresses->id, 'parent_original' => $manageCustomersAddresses->id, 'parent_show' => $manageCustomersAddresses->id, 'sidebar_link' => '1', 'appear' => '0']);
+        // DISPLAY CUSTOMER ADDRESS
+        $displayCustomersAddresses = Permission::create(['name' => 'display_customers_addresses', 'display_name' => 'Show CustomersAddresses', 'route' => 'customers_addresses', 'module' => 'customers_addresses', 'as' => 'customers_addresses.show', 'icon' => null, 'parent' => $manageCustomersAddresses->id, 'parent_original' => $manageCustomersAddresses->id, 'parent_show' => $manageCustomersAddresses->id, 'sidebar_link' => '1', 'appear' => '0']);
+        // UPDATE CUSTOMER ADDRESS
+        $updateCustomersAddresses = Permission::create(['name' => 'update_customers_addresses', 'display_name' => 'Update CustomersAddresses', 'route' => 'customers_addresses', 'module' => 'customers_addresses', 'as' => 'customers_addresses.edit', 'icon' => null, 'parent' => $manageCustomersAddresses->id, 'parent_original' => $manageCustomersAddresses->id, 'parent_show' => $manageCustomersAddresses->id, 'sidebar_link' => '1', 'appear' => '0']);
+        // DELETE CUSTOMER ADDRESS
+        $deleteCustomersAddresses = Permission::create(['name' => 'delete_customers_addresses', 'display_name' => 'Delete CustomersAddresses', 'route' => 'customers_addresses', 'module' => 'customers_addresses', 'as' => 'customers_addresses.destroy', 'icon' => null, 'parent' => $manageCustomersAddresses->id, 'parent_original' => $manageCustomersAddresses->id, 'parent_show' => $manageCustomersAddresses->id, 'sidebar_link' => '1', 'appear' => '0']);
+
 
         // COUNTRY
         $manageCountries = Permission::create(['name' => 'manage_countries', 'display_name' => 'Countries', 'route' => 'countries', 'module' => 'countries', 'as' => 'countries.index', 'icon' => 'fas fa-globe', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '40']);

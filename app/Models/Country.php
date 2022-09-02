@@ -20,12 +20,17 @@ class Country extends Model
 
     public $timestamps = false;
 
+    public function status(){
+        return $this->status ? 'Active' : 'Inactive';
+    }
+
     public function states() : HasMany
     {
         return $this->hasMany(State::class);
     }
 
-    public function status(){
-        return $this->status ? 'Active' : 'Inactive';
+    public function addresses():HasMany
+    {
+        return $this->hasMany(UserAddress::class);
     }
 }
