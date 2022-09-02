@@ -9,6 +9,9 @@ use App\Http\Controllers\Back\ProductReviewController;
 use App\Http\Controllers\Back\SupervisorController;
 use App\Http\Controllers\Back\TagController;
 use App\Http\Controllers\Front\FrontendController;
+use App\Http\Controllers\Front\CountryController;
+use App\Http\Controllers\Front\StateController;
+use App\Http\Controllers\Front\CityController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
@@ -50,7 +53,10 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] ,  function(){
 
         Route::resource('supervisors' , SupervisorController::class);
         Route::post('/supervisors/remove-image' , [SupervisorController::class , 'remove_image'])->name('supervisors.remove_image');
-
+        
+        Route::resource('countries' , CountryController::class);
+        Route::resource('states' , StateController::class);
+        Route::resource('cities' , CityController::class);
     });
 });
 Auth::routes(['verify' => true]);
