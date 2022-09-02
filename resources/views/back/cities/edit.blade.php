@@ -30,10 +30,10 @@
                         <select name="state_id" class="form-control">
                             <option value="">---</option>
                             @foreach ($states as $state)
-                                <option value="{{ $state->id }}" {{ old('state_id' , $state->state_id) == $state->id ? 'selected' : null }}>{{ $state->name }}</option>
+                                <option value="{{ $state->id }}" {{ old('state_id' , $state->id) == $state->id ? 'selected' : null }}>{{ $state->name }}</option>
                             @endforeach
                         </select>
-                        @error('status')<span class="text-danger">{{ $message }}</span>@enderror
+                        @error('state')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-4">
                         <label for="status">Status</label>

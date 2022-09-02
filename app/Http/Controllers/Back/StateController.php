@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Back;
 use App\Http\Controllers\Controller;
 use App\Models\State;
 use App\Models\Country;
+use App\Http\Requests\Back\StateRequest;
 use Illuminate\Http\Request;
 
 class StateController extends Controller

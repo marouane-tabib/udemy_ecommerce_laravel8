@@ -8,10 +8,10 @@ use App\Http\Controllers\Back\ProductCouponController;
 use App\Http\Controllers\Back\ProductReviewController;
 use App\Http\Controllers\Back\SupervisorController;
 use App\Http\Controllers\Back\TagController;
+use App\Http\Controllers\Back\CountryController;
+use App\Http\Controllers\Back\StateController;
+use App\Http\Controllers\Back\CityController;
 use App\Http\Controllers\Front\FrontendController;
-use App\Http\Controllers\Front\CountryController;
-use App\Http\Controllers\Front\StateController;
-use App\Http\Controllers\Front\CityController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Back;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\State;
+use App\Http\Requests\Back\CityRequest;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
@@ -21,7 +22,7 @@ class CityController extends Controller
                 'show_cities')){
                 return redirect('admin/index');
             }
-            $cities = City::queary()
+            $cities = City::query()
                 ->when(\request()->keyword != null , function($query){
                     $query->search(\request()->keyword);
                 })

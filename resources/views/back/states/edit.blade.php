@@ -30,7 +30,7 @@
                         <select name="country_id" class="form-control">
                             <option value="">---</option>
                             @foreach ($countries as $country)
-                                <option value="{{ $country_id }}" {{ old('country_id' , $state->country_id) == $country->id ? 'selected' : null }}>{{ $country->name }}</option>
+                                <option value="{{ $country->id }}" {{ old('country_id' , $state->country_id) == $country->id ? 'selected' : null }}>{{ $country->name }}</option>
                             @endforeach
                         </select>
                         @error('status')<span class="text-danger">{{ $message }}</span>@enderror
