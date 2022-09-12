@@ -28,6 +28,8 @@ class CustomerAddressRequest extends FormRequest
             case 'PUT' :
             case 'PATCH' : {
                 return [
+                    'user_id'     => 'required',
+                    'default_address'     => 'nullable',
                     'address_title'     => 'required',
                     'fitst_name'        => 'required',
                     'last_name'         => 'required',

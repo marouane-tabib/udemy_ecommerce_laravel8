@@ -51,6 +51,7 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] ,  function(){
 
         Route::resource('customers' , CustomerController::class);
         Route::post('/customers/remove-image' , [CustomerController::class , 'remove_image'])->name('customers.remove_image');
+        Route::post('/customers/get_customers' , [CustomerController::class , 'get_customers'])->name('customers.get_customers');
         Route::resource('customer_address' , CustomerAddressController::class);
 
         Route::resource('supervisors' , SupervisorController::class);
