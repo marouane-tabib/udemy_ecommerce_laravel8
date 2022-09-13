@@ -163,7 +163,7 @@ class CustomerController extends Controller
         
         $customers = User::whereHas('roles' , function($query){
             $query->where('name' , 'customer');
-        })->when(\request()->input('query') != '' , function($query){
+        })->when(\request()->input('query') != null , function($query){
             $query->search(\request()->input('query'));
         })
         ->get(['id' , 'first_name' , 'last_name' , 'email'])->toArray();

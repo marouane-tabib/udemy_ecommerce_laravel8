@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Back;
 use App\Http\Controllers\Controller;
 use App\Models\UserAddress;
 use App\Models\Country;
+use App\Models\User;
+use App\Http\Requests\Back\CustomerAddressRequest;
 use Illuminate\Http\Request;
 
 class CustomerAddressController extends Controller
@@ -25,7 +27,7 @@ class CustomerAddressController extends Controller
             ->when(\request()->keyword != null , function($query){
                 $query->search(\request()->keyword);
             })
-            ->when(\request()->status != '' , function($query){
+            ->when(\request()->status != null , function($query){
                 $query->whereDefaultAddress(\request()->status);
             })
             ->orderBy(\request()->sort_by ?? 'id' , \request()->order_by ?? 'desc')
@@ -43,8 +45,9 @@ class CustomerAddressController extends Controller
         if(!auth()->user()->ability('admin' , 'create_customer_addresses')){
             return redirect('admin/index');
         }
-        $contries = Country::whereStatus(true)->get(['id' , 'name']);
-        return view('back.customer_addresses.create' , compact('contries'));
+
+        $countries = Country::whereStatus(true)->get(['id' , 'name']);
+        return view('back.customer_addresses.create' , compact('countries'));
     }
 
     /**
@@ -92,7 +95,7 @@ class CustomerAddressController extends Controller
             return redirect('admin/index');
         }
 
-        $contries = Country::whereStatus(true)->get(['id' , 'name']);
+        $countries = Country::whereStatus(true)->get(['id' , 'name']);
         return view('back.customer_addresses.edit' , compact('customer_address' , 'countries'));
     }
 

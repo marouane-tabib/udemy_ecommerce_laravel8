@@ -35,17 +35,17 @@
             @forelse($customer_addresses as $customer_address)
                 <tr>
                     <td>
-                        <a href="{{ route('admin.customer_address.show' , $customer_addresses->user_id) }}">{{ $customer_addresses->user->full_name }}</a>
+                        <a href="{{ route('admin.customers.show' , $customer_address->user_id) }}">{{ $customer_address->user->full_name }}</a>
                     </td>
                     <td>
-                        <a href="{{ route('admin.customer_address.show' , $customer_addresses->id) }}">{{ $customer_addresses->address_title }}</a>
-                        <p class="text-gray-400"><b>{{ $customer_addresses->defaultAddress() }}</b></p>
+                        <a href="{{ route('admin.customer_address.show' , $customer_address->id) }}">{{ $customer_address->address_title }}</a>
+                        <p class="text-gray-400"><b>{{ $customer_address->defaultAddress() }}</b></p>
                     </td>
                     <td>
-                        {{ $customer_addresses->first_name . ' ' . $customer_addresses->last_name }}
-                        <p class="text-gray-400">{{ $customer_addresses->email }}</br>{{ $customer_addresses->mobile }}</p>
+                        {{ $customer_address->first_name . ' ' . $customer_address->last_name }}
+                        <p class="text-gray-400">{{ $customer_address->email }}</br>{{ $customer_address->mobile }}</p>
                     </td>
-                    <td>{{ $customer_address->country_name . ' - ' . $customer_address->state->name . ' - ' . $customer_addresses->city->name }}</td>
+                    <td>{{ $customer_address->country_name . ' - ' . $customer_address->state->name . ' - ' . $customer_address->city->name }}</td>
                     <td>{{ $customer_address->address }}</td>
                     <td>{{ $customer_address->zip_code }}</td>
                     <td>{{ $customer_address->po_box }}</td>

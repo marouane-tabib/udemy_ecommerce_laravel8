@@ -78,11 +78,24 @@
                             <label for="country_id">Country</label>
                             <select name="country_id" id="country_id" class="form-control">
                                     <option value="">---</option>
-                                @foreach ($contries as $country)
-                                    <option value="{{ $country->name }}" class="form-control">{{ $country->name }}</option>
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->name }}" {{ old('country_id') == $country_id ? 'selected' : null }} class="form-control">{{ $country->name }}</option>
                                 @endforeach
                             </select>
-                            @error('last_name')<div class="text-danger">{{ $message }}</div>@enderror
+                            @error('country_id')<div class="text-danger">{{ $message }}</div>@enderror
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="state_id">State</label>
+                            <select name="state_id" id="state_id" class="form-control"></select>
+                            @error('state_id')<div class="text-danger">{{ $message }}</div>@enderror
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="city_id">City</label>
+                            <select name="city_id" id="city_id" class="form-control"></select>
                         </div>
                     </div>
                 </div>
