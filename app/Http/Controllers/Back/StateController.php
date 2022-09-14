@@ -138,5 +138,10 @@ class StateController extends Controller
             'alert-type'=> 'success'
         ]);
     }
+    
+    public function get_states(Request $request){
+        $states = State::whereCountryId($request->country_id)->whereStatus(true)->get(['id' , 'name'])->toArray();
+        return response()->json($states);
+    }
 
 }

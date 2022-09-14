@@ -58,7 +58,9 @@ Route::group(['prefix' => 'admin' , 'as' => 'admin.'] ,  function(){
         Route::post('/supervisors/remove-image' , [SupervisorController::class , 'remove_image'])->name('supervisors.remove_image');
         
         Route::resource('countries' , CountryController::class);
+        Route::get('states/get_states' , [StateController::class , 'get_states'])->name('states.get_states');
         Route::resource('states' , StateController::class);
+        Route::get('cities/get_cities' , [CityController::class , 'get_cities'])->name('cities.get_cities');
         Route::resource('cities' , CityController::class);
     });
 });

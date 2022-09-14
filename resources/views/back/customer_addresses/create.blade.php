@@ -88,14 +88,18 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label for="state_id">State</label>
-                            <select name="state_id" id="state_id" class="form-control"></select>
+                            <select name="state_id" id="state_id" class="form-control">
+
+                            </select>
                             @error('state_id')<div class="text-danger">{{ $message }}</div>@enderror
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label for="city_id">City</label>
-                            <select name="city_id" id="city_id" class="form-control"></select>
+                            <select name="city_id" id="city_id" class="form-control">
+
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -125,6 +129,45 @@
                     console.log(data);
                 }
             });
+
+            populateStates();
+            pomulateCities();
+            
+            $("#country_id").change(function(){
+                populateStates();
+                pomulateCities();
+                return false;
+            });
+
+            $("#state_id").change(function(){
+                populateCities();
+                return false;
+            });
+
+            function populateStates(){
+                let countryIdVal = $('#country_id').val() != null ? $('#country_id').val() : "{{ old('country_id') }}";
+                $.get("{{ route('admin.states.get_states') }}" , {country_id : countryIdVal} , function(data){
+                    $('option' , $("#state_id")).remove();
+                    $('#state_id').append($('<option></option>').val('').html('---'));
+                    $.each(data , function(val , text){
+                        let selectedVal = text.id == "{{ old('state_id') }}" ? "selected" : "";
+                        $('#state_id').append($('<option ' + selectedVal + '></option>').val(text.id).html(text.name));
+                    });
+                } , "json");
+            }
+
+            function populateStates(){
+                let stateIdVal = $('#state_id').val() != null ? $('#state_id').val() : "{{ old('state_id') }}";
+                $.get("{{ route('admin.states.get_states') }}" , {country_id : countryIdVal} , function(data){
+                    $('option' , $("#city_id")).remove();
+                    $('#city_id').append($('<option></option>').val('').html('---'));
+                    $.each(data , function(val , text){
+                        let selectedVal = text.id == "{{ old('city_id') }}" ? "selected" : "";
+                        $('#city_id').append($('<option ' + selectedVal + '></option>').val(text.id).html(text.name));
+                    });
+                } , "json");
+                
+            }
         });
     </script>
 @endsection

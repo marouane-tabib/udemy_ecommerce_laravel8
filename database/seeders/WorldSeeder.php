@@ -15,9 +15,6 @@ class WorldSeeder extends Seeder
     {   
         // Set the path of your .sql file
         $world = public_path('udemy_ecommerce_world.sql');
-        $countries = public_path('countries.sql');
-        $states = public_path('states.sql');
-        $cities = public_path('cities.sql');
 
         $db = [
             'username' => env('DB_USERNAME'),
@@ -32,9 +29,5 @@ class WorldSeeder extends Seeder
        //$sql = storage_path('a_id_territory.sql');
 
        exec("{$db_bin}\mysql --user={$db['username']} --password={$db['password']} --host={$db['host']} --database={$db['database']} < $world");
-
-        // exec("mysql --user={$db['username']} --password={$db['password']} --host={$db['host']} --database={$db['database']} < $countries");
-        // exec("mysql --user={$db['username']} --password={$db['password']} --host={$db['host']} --database={$db['database']} < $states");
-        // exec("mysql --user={$db['username']} --password={$db['password']} --host={$db['host']} --database={$db['database']} < $cities");
     }
 }
